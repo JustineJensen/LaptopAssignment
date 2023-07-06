@@ -1,0 +1,19 @@
+h1{
+    background-color: black;
+    color: white !important;
+    text-align: center;
+}
+.items{
+    display: flex;
+    gap:100px;
+    margin-left:300px;
+    }
+    span{
+        font-weight: 700;
+    }
+
+    small{
+        margin-top: 200px;
+    }
+   
+  
