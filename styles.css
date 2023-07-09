@@ -1,19 +1,43 @@
-h1{
+h1 {
     background-color: black;
     color: white !important;
     text-align: center;
-}
-.items{
-    display: flex;
-    gap:100px;
-    margin-left:300px;
+  }
+  
+  /* Add additional CSS rules as needed */
+  
+  #banker,
+  #work,
+  #laptops {
+    text-align: center;
+  }
+  
+  #buy-btn {
+    margin-top: 20px;
+  }
+  
+  #display-info {
+    padding: 20px;
+  }
+  
+  #display-price {
+    text-align: center;
+  }
+  
+  @media (max-width: 767px) {
+    .items {
+      flex-direction: column;
+      gap: 2%;
+      margin-left: 5%;
     }
-    span{
-        font-weight: 700;
+  
+    .order-section {
+      flex-direction: column;
+      gap: 2%;
     }
-
-    small{
-        margin-top: 200px;
+  
+    #buy-btn {
+      margin-top: 5%;
     }
-   
+  }
   

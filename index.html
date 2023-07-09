@@ -6,60 +6,87 @@
     <title>Tech laptops</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="app.js" type="module" defer></script>
 </head>
 <body>
-    <h1>Tech Laptops</h1>
-    <!-- Bank-section -->
-    <div class="items">
-        <div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-            <div id="banker">
-                <span>Joe Banker</span>
-                <div>
-                    <small>Balance</small>
-                </div>
-                <div class="loan-btn">
-                    <button type="button" class="btn btn-success" id ="btn-loan">Get a loan</button>
-                </div> 
-            </div>
-        </div>
-        <!-- Work section -->
-        <div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-            <div id="work">
-                <span>Work</span>
-                <div>
-                    <small>Pay</small>
-                </div>
-                <div class="work-btn" >
-                    <button type="button" class="btn btn-warning" id ="bank-btn">Bank</button>
-                    <button type="button" class="btn btn-primary" id ="work-btn">Work</button>
+    <h1 class="text-center">Tech Laptops</h1>
+    
+    <div class="container">
+        <div class="row">
+            <!-- Bank section -->
+            <div class="col-md-4 mb-3">
+                <div class="shadow-sm p-3 bg-body-tertiary rounded">
+                    <div id="banker">
+                        <span>Joe Banker</span>
+                        <div>
+                            <small id ="bank-balance">Balance</small>
+                        </div>
+                        <div class="loan">
+                            <button type="button" class="btn btn-success" id="loan-btn">Get a loan</button>
+                            <button type="button" class="btn btn-success invisible"  id="repay-btn">Repay</button>
+                        </div> 
+                    </div>
                 </div>
             </div>
+            
+            <!-- Work section -->
+            <div class="col-md-4 mb-3">
+                <div class="shadow-sm p-3 bg-body-tertiary rounded">
+                    <div>
+                        <span>Work</span>
+                        <div>
+                            <small id="display-salary">Pay</small>
+                        </div>
+                        <div class="work-btn">
+                            <button type="button" class="btn btn-warning" id="bank-btn">Bank</button>
+                            <button type="button" class="btn btn-primary" id="work-btn">Work</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Laptop section -->
+            <div class="col-md-4 mb-3">
+                <div class="shadow-sm p-3 bg-body-tertiary rounded">
+                    <div id="laptops">
+                        <span>Laptops</span>
+                        <div>
+                            <select aria-label="computer-list" name="Computers" id="display-computer-list" class="form-select">
+                                <option value="option-1">Intol Celeroon E10</option>
+                                <option value="option-2">Option 2</option>
+                                <option value="option-3">Option 3</option>
+                                <option value="option-4">Option 4</option>
+                            </select>
+                            <section>
+                                <small id="display-features">Features:</small>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- Laptop section -->
-        <div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-            <div id="laptops">
-                <span>Laptops</span>
-                <div>
-                    <!-- selection box-->
-                    <select aria-label="computer-list" name="Computers" id="options">
-                        <option value="option-1">Intol Celeroon E10</option>
-                        <option value="option-2">Option 2</option>
-                        <option value="option-3">Option 3</option>
-                        <option value="option-4">Option 4</option>
-                    </select>
-                    <section>
-                        <small class="features">Features:</small>
-                    </section>
+
+        <!-- Order section -->
+        <div class="shadow-sm p-3 bg-body-tertiary rounded">
+            <div class="row">
+                <div class="col-lg-3 mb-3">
+                    <img src="https://hickory-quilled-actress.glitch.me/assets/images/1.png" alt="computer" width="300" class="img-fluid">
+                </div>
+                <div class="col-lg-3 mb-3" id="display-computer-info"></div>
+                <div class="col-lg-3 mb-3" id="display-price">
+                    1500SEK
+                </div>
+                <div class="col-lg-3 mb-3">
+                    <button type="button" class="btn btn-info" id="buy-btn">Buy now</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-        <div>
-            <button type="button" class="btn btn-info" id ="buy-btn">Buy</button>
-        </div>
-    </div>
-    <script src="script.js"></script>
+
+    <script src="bank.js" type="module"></script>
+    <script src="work.js" type="module"></script>
+    <script src="loan.js" type="module"></script>
+    <script src="buy.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 </body>
