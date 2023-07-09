@@ -1,4 +1,5 @@
 import bank from "./bank.js";
+import work from "./work.js";
 
 const API_URL = "https://hickory-quilled-actress.glitch.me/computers"
 let computers =[];
@@ -33,8 +34,9 @@ function handleBankButtonClick(amount){
     displayBankBalance()
     
 }
-function handleWorkButtonClick(){
-    work.addSalary(100)
+function handleWorkButtonClick(amount){
+    work.addSalary(amount)
+    displaySalary()
 
 
 }
@@ -62,7 +64,7 @@ bankBalanceElement.innerText = `Balance kr${bank.getBalance()}`
 
 }
 function displaySalary(){
-displaySalaryElement.innerText = `Salary kr ${work.showCurrentSalary()}`
+displaySalaryElement.innerText = `Pay  kr ${work.showCurrentSalary()}`
 
 }
 function displayComputerInfo(){
