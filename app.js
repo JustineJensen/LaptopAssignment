@@ -5,7 +5,7 @@ import { API_URL ,image_URL} from "./utils.js";
 
 
 let computer =[];
-let computersAsync =[];
+
 
 
 // creating variables
@@ -32,9 +32,14 @@ workButton.addEventListener('click',()=>handleWorkButtonClick(100))
 buyButton.addEventListener('click',handleBuyButtonClick)
 repayLoanButton.addEventListener('click',()=>handleReyPayLoanButtonClick(400))
 displayComputerListElement.addEventListener('change',handleComputerSelected)
+
 getLoanButton .addEventListener('click',function(){
+
+    const aNumber = Number(window.prompt("Enter amount to borrow", ""));
+    console.log(aNumber);
+   
     //display repay loan button when get a loan is clicked
-repayLoanButton.style.display ='block'
+     repayLoanButton.style.display ='block'
     
 })
 
@@ -50,15 +55,15 @@ let computers= []
    displayFeaturesElement.innerText =currentSelectedComputer.specs
    displayComputerTitle.innerText = currentSelectedComputer.title
 
-  
-
 
    //display selected image
    displayImageElement.setAttribute("src",image_URL+ currentSelectedComputer.image)
  } 
- 
-function handleBankButtonClick(amount){
-    bank.deposit(amount)
+
+function handleBankButtonClick(){
+   // bank.deposit(amount)
+    work.transferMoneyToBank()
+    displaySalary()
     displayBankBalance()
     
 }
@@ -84,9 +89,7 @@ function handleReyPayLoanButtonClick(amount){
     }  
 
 }
-function show(){
 
-}
 function displayBankBalance(){
     bankBalanceElement.innerText = "Balance: " + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(bank.getBalance());
     
@@ -94,22 +97,6 @@ function displayBankBalance(){
     function displaySalary(){
     displaySalaryElement.innerText = "Pay: " + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(work.showCurrentSalary());
     
-    }
-    function displayComputerInfo(){
-       // displayComputerInfoElement.
-        
-    }
-    function displayFeatures(){
-       // displayFeaturesElement
-        
-    }
-    function displayPrice(){
-       // displayPriceElement
-        
-    }
-    function displayComputerList(){
-        //displayComputerListElement
-        
     }
 
 // fetch API using promise
@@ -137,9 +124,7 @@ function populateComputersSelectBox(){
         newComputerOption.value = computer.id
         displayComputerListElement.appendChild(newComputerOption)
       
-        //imageElement.src = state.imgUrl;
-       // imageElement.style.display = "none" // hide the image
-       // displayImageElement.appendChild(imageElement);
+       
     }
 }
 

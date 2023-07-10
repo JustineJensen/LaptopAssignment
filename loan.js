@@ -1,19 +1,37 @@
-
+let bankBalance =500
 let payAmount = 0
 let loanAmount =0
-function getLoan(){
-    const  loanAmount = Number(window.prompt("Enter amount", "")); 
-    if(loan != null){
-        loan += outStandingLoan
-    }
-    return loanAmount
-    /*
+let outStandingLoan =0
+let maxLoanAmount
+
+/*
     Constraints on Get a loan button: 
 1. You cannot get a loan more than double of your bank balance (i.e., If you have 500 you cannot get a 
 loan greater than 1000.)
 2. You cannot get more than one bank loan before repaying the last loan.
 3. You may not have two loans at once. The initial loan should be paid back in full. 
     */
+function getLoan(){
+    //loan += outStandingLoan
+    if(outStandingLoan === 0){
+        if (loanAmount === 0){
+        
+            const requestedAmount = prompt(`Enter loan amount (maximum: ${maxLoanAmount}):`);
+
+            const newLoan = parseInt(requestedAmount);
+        
+        if (newLoan<=maxLoanAmount){
+            loanAmount = newLoan;
+            outStandingLoan = newLoan;
+            return loanAmount;
+        
+             }else { 
+             throw new error (" You can not get a new bank loan before repaying the last one ")
+    
+           }
+        
+    } }
+    
 
 }
 function  showOutStandingLoan(){

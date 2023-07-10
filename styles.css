@@ -19,6 +19,9 @@ h1 {
   #display-info {
     padding: 20px;
   }
+ .bank-balance{
+  margin-top: 700px !important;
+ }
   
   #display-price {
     text-align: center;
