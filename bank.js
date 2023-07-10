@@ -10,7 +10,9 @@ outstanding Loan amount.
 let bankBalance = 0
 
 function getBalance (){
-    return bankBalance
+      return bankBalance
+
+   
 }
 
 function deposit(amount){
@@ -23,6 +25,9 @@ function showBalance(){
     bankBalance -=amount
  }
  function transferMoney(amount){
+   if(Work.salary!=null){
+      bankBalance += amount
+   }
 
     //The bank button must transfer the money from your Pay/Salary balance to your Bank balance. Remember to reset your pay/salary once you transfer. 
     
