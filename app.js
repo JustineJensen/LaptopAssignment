@@ -91,12 +91,11 @@ function handleWorkButtonClick(amount){
 }
 //buy computer button
 function handleBuyButtonClick(){
-    console.log("clicked");
     if (bank.getBalance()< currentSelectedComputer.price){
         alert("You cannot afford the laptop.");
     }else if(bank.getBalance()>= currentSelectedComputer.price){
-        bank.setMoney(bank.getBalance()-currentSelectedComputer.price)
-        alert("You are now the owner of the new laptop")
+        bank.setMoney(currentSelectedComputer.price)
+        alert(`You are now the owner of  ${currentSelectedComputer.title}`)
         displayBankBalance()
     }
 }

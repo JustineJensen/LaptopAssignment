@@ -39,10 +39,9 @@ h1 {
     .order-section {
       flex-direction: column;
       gap: 2%;
+
     }
-  
-    #buy-btn {
-      margin-top: 5%;
-    }
+   
+    
   }
   
