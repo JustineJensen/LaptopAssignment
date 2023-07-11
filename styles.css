@@ -3,8 +3,9 @@ h1 {
     color: white !important;
     text-align: center;
   }
-  
-  /* Add additional CSS rules as needed */
+  .order-section{
+    display: flex;
+  }
   
   #banker,
   #work,
@@ -19,9 +20,10 @@ h1 {
   #display-info {
     padding: 20px;
   }
- .bank-balance{
-  margin-top: 700px !important;
- }
+  .loan{
+  display: flex;
+  gap:10px;
+  }
   
   #display-price {
     text-align: center;

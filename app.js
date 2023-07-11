@@ -1,28 +1,25 @@
 import bank from "./bank.js";
 import work from "./work.js";
 import loan from "./loan.js";
+import buy from "./buy.js";
 import { API_URL ,image_URL} from "./utils.js";
 
 
 let computer =[];
 
-
-
 // creating variables
 const bankButton = document.getElementById("bank-btn");
 const workButton = document.getElementById("work-btn");
 const buyButton = document.getElementById("buy-btn");
-const getLoanButton = document.getElementById("loan-btn"); // will also show a popup box  that allows you to enter an amount
+const loanButton = document.getElementById("loan-btn"); 
 const repayLoanButton = document.getElementById("repay-btn");
-
-
 const bankBalanceElement = document.getElementById("bank-balance");
 const displaySalaryElement = document.getElementById("display-salary");
 const displayFeaturesElement = document.getElementById("display-features");
 const displayPriceElement = document.getElementById("computer-price");
 const displayComputerInfoElement = document.getElementById("display-computer-info");
 const displayComputerListElement = document.getElementById("display-computer-list");
-const displayOutStandingLoan = document.getElementById("")
+const displayOutStandingLoan = document.getElementById("display-OutStanding-Loan")
 const displayComputerTitle = document.getElementById("computer-title")
 const displayImageElement = document.getElementById("display-img")
 
@@ -30,38 +27,58 @@ const displayImageElement = document.getElementById("display-img")
 bankButton.addEventListener('click',()=>handleBankButtonClick(100))
 workButton.addEventListener('click',()=>handleWorkButtonClick(100))
 buyButton.addEventListener('click',handleBuyButtonClick)
-repayLoanButton.addEventListener('click',()=>handleReyPayLoanButtonClick(400))
+repayLoanButton.addEventListener('click',()=>handleRePayLoanButtonClick())
 displayComputerListElement.addEventListener('change',handleComputerSelected)
 
-getLoanButton .addEventListener('click',function(){
-
-    const aNumber = Number(window.prompt("Enter amount to borrow", ""));
-    console.log(aNumber);
-   
-    //display repay loan button when get a loan is clicked
-     repayLoanButton.style.display ='block'
+// handle loan button
+loanButton.addEventListener('click', function() {
+    let amount =0
+    const bankBalance = bank.getBalance();
+    let outStandingLoan = loan.getOutStandingLoan();
+    let loanAmount = prompt("Enter amount")
+    if (typeof loanAmount !== Number) {
+        loanAmount = Number(loanAmount)
+    }
     
-})
-
+    if(bank.getBalance()=== 0){
+        alert("You don't have money on the account")
+    }
+    else if(outStandingLoan > 0){
+        alert("You already have an outstanding loan. Please repay the previous loan before applying for a new one.");
+    }else {
+        if (loanAmount > bankBalance * 2) {
+            alert("You cannot get a loan more than double your bank balance."); 
+        } else if(loanAmount <= 0) {
+            alert("Loan amount should be a positive value.");
+        }else{
+            alert ("Loan application approved")
+            outStandingLoan += loanAmount
+            loan.setLoan(outStandingLoan)
+            bank.deposit(loanAmount)
+            displayBankBalance()
+            displayLoan()
+            repayLoanButton.style.display = 'block';
+        }
+    } 
+});
 
 // variables 
 let computers= []
+let currentSelectedComputer
 
 //Event handlers with function syntax
- function handleComputerSelected(event){
-   const currentSelectedComputer = computers.find(computer=>computer.id ==event.target.value)
-   displayComputerInfoElement.innerText =currentSelectedComputer.description
-   displayPriceElement.innerText =`kr ${currentSelectedComputer.price}`
-   displayFeaturesElement.innerText =currentSelectedComputer.specs
-   displayComputerTitle.innerText = currentSelectedComputer.title
+function handleComputerSelected(event){
+    currentSelectedComputer = computers.find(computer=>computer.id ==event.target.value)
+    displayComputerInfoElement.innerText =currentSelectedComputer.description
+    displayPriceElement.innerText =`kr ${currentSelectedComputer.price}`
+    displayFeaturesElement.innerText =currentSelectedComputer.specs
+    displayComputerTitle.innerText = currentSelectedComputer.title
 
-
-   //display selected image
-   displayImageElement.setAttribute("src",image_URL+ currentSelectedComputer.image)
- } 
+    //display selected image
+    displayImageElement.setAttribute("src",image_URL+ currentSelectedComputer.image)
+}  
 
 function handleBankButtonClick(){
-   // bank.deposit(amount)
     work.transferMoneyToBank()
     displaySalary()
     displayBankBalance()
@@ -72,62 +89,68 @@ function handleWorkButtonClick(amount){
     displaySalary()
 
 }
+//buy computer button
 function handleBuyButtonClick(){
-
-}
-function handleRepayLoanButtonClick(amount){
-    showOutStandingLoan()
-
-
-}
-function handleReyPayLoanButtonClick(amount){
-    const loanAmount =0
-    const payAmount = 0
-    if (payAmount >= loanAmount){
-        bank.repayLoan(amount)
-       
-    }  
-
+    console.log("clicked");
+    if (bank.getBalance()< currentSelectedComputer.price){
+        alert("You cannot afford the laptop.");
+    }else if(bank.getBalance()>= currentSelectedComputer.price){
+        bank.setMoney(bank.getBalance()-currentSelectedComputer.price)
+        alert("You are now the owner of the new laptop")
+        displayBankBalance()
+    }
 }
 
+function handleRePayLoanButtonClick(){
+    console.log("button clicked");
+    let payAmount = work.getSalary()
+
+    if (payAmount >= loan.getOutStandingLoan()) { 
+        bank.deposit(payAmount-loan.getOutStandingLoan())
+        loan.setLoan(0)
+    } else {
+        loan.setLoan(loan.getOutStandingLoan()-payAmount)
+        bank.deposit(loan.getOutStandingLoan()-payAmount)
+    }
+    displayBankBalance()
+    displaySalary()
+    displayLoan()
+    repayLoanButton.style.display = 'none';
+} 
 function displayBankBalance(){
     bankBalanceElement.innerText = "Balance: " + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(bank.getBalance());
     
     }
-    function displaySalary(){
+function displaySalary(){
     displaySalaryElement.innerText = "Pay: " + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(work.showCurrentSalary());
     
     }
-
+function displayLoan(){
+    displayOutStandingLoan.innerText = "Loan: " + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(loan.getOutStandingLoan());
+}
 // fetch API using promise
 function getComputers(){
     fetch(API_URL)
     .then(response => response.json())
     .then(json =>{
-        //console.log(json)
         computers =json
-       populateComputersSelectBox()
+    populateComputersSelectBox()
     })
     .catch(error =>console.error(error.message))
 }
 
 function populateComputersSelectBox(){
-    displayComputerListElement
     if(!computers)
     alert("No computers to display")
 
     for (const computer of computers ){
         let newComputerOption = document.createElement('option')
-       // const imageElement =document.createElement('img')
         newComputerOption.innerText = computer.title
         // wire up a value
         newComputerOption.value = computer.id
         displayComputerListElement.appendChild(newComputerOption)
-      
-       
     }
 }
-
 
 //Runtime
 getComputers()
