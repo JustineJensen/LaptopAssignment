@@ -6,6 +6,7 @@ Run using node
 JavaScript
 ## Features
 The Bank Section
+
 1.1 Balance: Displays the Bank balance.
 
 1.2 Get a Loan Button:  Allows you to get a loan upon clicking on the button. 
